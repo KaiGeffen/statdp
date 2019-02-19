@@ -27,6 +27,8 @@ import matplotlib
 from statdp import detect_counterexample
 from statdp.algorithms import *
 
+import json_tricks
+
 # switch matplotlib backend for running in background
 matplotlib.use('agg')
 
@@ -98,8 +100,8 @@ def main():
                     results, algorithm.__name__.replace('_', ' ').title(), algorithm.__name__ + '.pdf')
 
         # dump the results to file
-        with open('./{}.json'.format(algorithm.__name__), 'w') as f:
-            json.dump(results, f)
+        with open('./result_{}.json'.format(algorithm.__name__), 'w') as f:
+            json_tricks.nonp.dump(results, f, allow_nan=True)
 
         logger.info('[{} / {}]: {} | Time elapsed: {}'
                     .format(i + 1, len(tasks), algorithm.__name__, time.time() - start_time))
